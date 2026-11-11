@@ -1,0 +1,13 @@
+\### 1\. Listar todas las canchas GET http://localhost:8080/api/canchas 
+### 2\. Crear una nueva cancha POST http://localhost:8080/api/canchas 
+Content-Type: application/json 
+
+{ 
+"nombre": "Cancha 1", 
+"deporte": "FUTBOL", 
+"precioHora": 5000.0 
+}
+### 3\. Obtener cancha por ID 
+GET http://localhost:8080/api/canchas/1
+### 4\. Consultar reservas de una cancha 
+GET http://localhost:8080/api/canchas/1/reservas
