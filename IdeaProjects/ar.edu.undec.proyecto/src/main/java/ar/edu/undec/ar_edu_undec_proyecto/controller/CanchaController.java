@@ -47,10 +47,19 @@ public class CanchaController {
     @GetMapping("/{id}/reservas")
     public List<Reserva> reservasPorFecha(
             @PathVariable Long id,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
-        return reservaService.reservasDeCanchaPorFecha(id, fecha);
+            @RequestParam (required = false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
+        //valida que la cancha exista. Si no existe buscaporId lanza 404
+        canchaService.buscarPorId(id);
+        //si pasaron fecha busca por cancha y fecha
+        if (fecha != null) {
+            return reservaService.reservasDeCanchaPorFecha(id, fecha);
+    }
+        //si no pasaron fecha, traemos la fecha actual o filtramos por fecha
+        return reservaService.reservasDeCanchaPorFecha(id, LocalDate.now());
     }
 }
+        
+
 
 
 
