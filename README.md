@@ -1,12 +1,12 @@
-# TP Integrador · DAW1 — <Nombre del sistema>
+# TP Integrador · DAW1 — Sistema de Gestión de canchas
 
-**Alumno/a:** Apellido, Nombre · **Legajo:** 00000
-**Enunciado elegido:** <biblioteca | gimnasio | taller | canchas | eventos>
+**Alumno/a:** Vargas, Sofia Leonor · **Legajo:** 510029
+**Enunciado elegido:**  canchas 
 
 
 ## Descripción
 
-<Dos o tres líneas: qué hace el sistema y para quién.>
+Sistema desarrollado con Spring Boot para la administración de un complejo deportivo. Permite gestionar canchas, registrar clientes y administrar reservas evitando solapamientos de horarios y controlando el ciclo de estados.
 
 ## Cómo ejecutarlo
 
