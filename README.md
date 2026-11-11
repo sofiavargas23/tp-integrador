@@ -23,27 +23,34 @@ Consola H2: `http://localhost:8080/h2-console`.
 
 | Entidad | Atributos principales | Relaciones |
 |---|---|---|
-| <Entidad1> | id, ... | ... |
-| <Entidad2> | id, ... | ... |
-| <Entidad3> | id, estado, ... | N a 1 con <Entidad1> y <Entidad2> |
+| Cancha | id, nombre, deporte, precioHora | 1 a N con Reserva |
+| Cliente | id, nombre, email, telefono | 1 a N con Reserva |
+| Reserva | id, fecha, horaInicio, precioTotal, estado | N a 1 con Cancha y Cliente |
 
-Estados de <Entidad3>: `ESTADO_A → ESTADO_B | ESTADO_C`, ...
+Estados de Reserva: `PENDIENTE → CONFIRMADA | CANCELADA`
 
 ## Endpoints
 
 | Método | Ruta | Descripción | Respuestas |
 |---|---|---|---|
-| GET | /api/... | Lista ... | 200 |
-| GET | /api/.../{id} | Busca por id | 200, 404 |
-| POST | /api/... | Crea | 201, 400, 404, 409 |
-| PUT | /api/.../{id} | Modifica | 200, 400, 404, 409 |
-| DELETE | /api/.../{id} | Borra | 204, 404, 409 |
+| GET | /api/canchas | Lista todas las canchas | 200 |
+| GET | /api/canchas/{id} | Busca cancha por id | 200, 404 |
+| POST | /api/canchas | Crea una nueva cancha | 201, 400 |
+| PUT | /api/canchas/{id} | Modifica los datos de una cancha | 200, 400, 404 |
+| DELETE | /api/canchas/{id} | Borra una cancha | 204, 404 |
 | PATCH | /api/.../{id}/estado | Cambia el estado | 200, 400, 404, 409 |
+|GET |/api/canchas/{id}/reservas|Reservas de la cancha (admite ?fecha=)| 200, 404|
+|POST|/api/clientes|Registra un nuevo cliente|201, 400|
+|GET|/api/clientes/{id}/reservas|Lista reservas de un cliente|200, 404|
+|POST|/api/reservas|Crea una reserva (estado PENDIENTE)|201, 400, 404, 409|
+|PATCH|/api/reservas/{id}|Cambia el estado de una reserva|200, 400, 404, 409|
 
 ## Reglas de negocio
 
-1. <Regla 1 y qué código devuelve>
-2. <Regla 2>
+1. Duracion de reserva: Entre 1 y 3 horas como máximo.
+2. Cálculo de precio: Se calcula automáticamente como precioHora x horas.
+3. Superposición de horarios: No se permite que dos reservas ocupen la misma cancha en horarios solapados.
+4. Flujo de estados: Una reserva nace en PENDIENTE. Puede pasar a CONFIRMADA o CANCELADA, pero no se pueden saltear estados ni volver atrás una confirmada.
 
 ## Pruebas
 
