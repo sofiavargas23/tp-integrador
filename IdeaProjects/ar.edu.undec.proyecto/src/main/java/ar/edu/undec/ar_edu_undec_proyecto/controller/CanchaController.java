@@ -48,8 +48,13 @@ public class CanchaController {
     public List<Reserva> reservasPorFecha(
             @PathVariable Long id,
             @RequestParam (required = false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
-        //valida que la cancha exista. Si no existe buscaporId lanza 404
-        canchaService.buscarPorId(id);
+        
+        //valida que la cancha exista. 
+        try {
+            canchaService.buscarPorId(id);
+        } catch (Exception e) {
+            throw new ar.edu.undec.ar_edu_undec_proyecto.exception.NotFoundException("Cancha no encontrada con id: "+id);
+        }
         //si pasaron fecha busca por cancha y fecha
         if (fecha != null) {
             return reservaService.reservasDeCanchaPorFecha(id, fecha);
